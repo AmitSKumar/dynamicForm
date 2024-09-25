@@ -1,0 +1,18 @@
+<form [formGroup]="myformgrp" (ngSubmit)="onSubmit()">
+    <div formArrayName="items">
+        <div *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+                <label for="name">Name:</label>
+                <input id="name" formControlName="name">
+                <div *ngIf="item.get('name')?.invalid && item.get('name')?.touched">Name is required.
+                </div>
+                <label for="quantity">Quantity:</label>
+                <input id="quantity" type="number" formControlName="quantity">
+                <div *ngIf="item.get('quantity')?.invalid && item.get('quantity')?.touched">Valid quantity is required.
+                </div>
+                <button type="button" (click)="additems(i)">Add Item</button>
+                <button type="button" (click)="removeItem(i)">Remove</button>
+            </div>
+        </div>
+   
+    <button type="submit" [disabled]="myformgrp.invalid">Submit</button>
+</form>
